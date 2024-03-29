@@ -9,4 +9,6 @@
     <color name="colorSecondaryVariant">#525143</color>
     <color name="colorOnSecondary">#eeeeee</color>
 
+    <color name="default_accent_color">#474c4f</color>
+
 </resources>

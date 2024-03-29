@@ -43,6 +43,7 @@ class Trek1SearchResultsDataProvider @Inject constructor(
                 cardData.hasDifferentBack = card.hasBack
                 cardData.infoList = null
                 cardData.cardBackResourceId = R.drawable.cardback
+                cardData.cardAccentColor = R.color.default_accent_color
 
                 cardData.cardZoomTransformation = when (card.type?.lowercase()) {
                     "tribble" -> tribbleZoomTransformation

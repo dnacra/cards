@@ -2,8 +2,8 @@
 <resources>
     // GIMP LCh Lightness = 50
     <color name="character_dark_accent">#657b86</color>
-    <color name="character_light_accent">#e8e8e1</color> // 92
-    <color name="red_accent">#c74d4f</color>
+    <color name="character_light_accent">#c7c7c0</color> // 80
+    <color name="red_accent">#b83f43</color> // 45
     <color name="green_accent">#178859</color>
     <color name="blue_accent">#397cbb</color>
     <color name="purple_accent">#8b6aa7</color>
