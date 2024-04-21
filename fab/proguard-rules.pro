@@ -1,6 +1,6 @@
 -dontobfuscate
--keep class com.hatfat.swccg.data.* { *; }
--keep class com.hatfat.swccg.data.format.* { *; }
+-keep class com.hatfat.fab.data.* { *; }
+-keep class com.hatfat.fab.data.format.* { *; }
 -keep class com.hatfat.cards.data.* { *; }
 
 -dontwarn org.conscrypt.*

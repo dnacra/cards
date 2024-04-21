@@ -8,7 +8,8 @@ Flesh and Blood version of the app.
     fab colors
     privacy policy
     about screen disclaimer from fab website
-
+    play store triplet setup
+    how much space do you save with json not having white space in the json?
 
 
 

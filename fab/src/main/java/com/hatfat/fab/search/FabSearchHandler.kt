@@ -4,10 +4,11 @@ import com.hatfat.cards.data.SearchResults
 import com.hatfat.cards.search.CardSearchHandler
 import com.hatfat.cards.search.filter.SearchParams
 import com.hatfat.fab.data.FabCardIdList
+import com.hatfat.fab.repo.FabCardRepository
 import javax.inject.Inject
 
 class FabSearchHandler @Inject constructor(
-//    private val cardRepo: SWCCGCardRepository,
+    private val cardRepo: FabCardRepository,
 //    private val setRepository: SWCCGSetRepository
 ) : CardSearchHandler {
     override fun performSearch(searchParams: SearchParams): SearchResults {
@@ -40,6 +41,7 @@ class FabSearchHandler @Inject constructor(
 //        }
 //
 //        return FabSearchResults(SWCCGCardIdList(results.toIntArray()))
-        return FabSearchResults(FabCardIdList(IntArray(0)))
+        val list = cardRepo.sortedCardIds.value ?: FabCardIdList(emptyList())
+        return FabSearchResults(list)
     }
 }

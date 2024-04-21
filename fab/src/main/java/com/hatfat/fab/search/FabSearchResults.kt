@@ -9,7 +9,7 @@ class FabSearchResults(
     override val size: Int
         get() = fabCardIdList.cardIds.size
 
-    override fun getResult(position: Int): Int {
+    override fun getResult(position: Int): String {
         return fabCardIdList.cardIds[position]
     }
 }

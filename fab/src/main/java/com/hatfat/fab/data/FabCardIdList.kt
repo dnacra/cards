@@ -3,7 +3,7 @@ package com.hatfat.fab.data
 import java.io.Serializable
 
 data class FabCardIdList(
-    val cardIds: IntArray,
+    val cardIds: List<String>,
 ) : Serializable {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -11,10 +11,10 @@ data class FabCardIdList(
 
         other as FabCardIdList
 
-        return cardIds.contentEquals(other.cardIds)
+        return cardIds.equals(other.cardIds)
     }
 
     override fun hashCode(): Int {
-        return cardIds.contentHashCode()
+        return cardIds.hashCode()
     }
 }
