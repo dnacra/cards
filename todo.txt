@@ -1,6 +1,17 @@
 APP-WORK
 ======================================
 Flesh and Blood version of the app.
+    fab name / card to base on?
+    create fab entry in playstore
+    real fab keystore
+    real fab upload key
+    fab colors
+    privacy policy
+    about screen disclaimer from fab website
+
+
+
+
 
 new resource loader that saves a resource to disk (rulebook, large map image).
 new activity that supports displaying a large resource from above.

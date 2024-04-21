@@ -11,6 +11,7 @@ buildscript {
         classpath(BuildPlugins.navigationSafeArgsGradlePlugin)
         classpath(BuildPlugins.hiltGradlePlugin)
         classpath(BuildPlugins.tripletPlayPlugin)
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.0")
     }
 }
 
