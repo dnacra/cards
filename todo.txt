@@ -1,5 +1,7 @@
 APP-WORK
 ======================================
+Flesh and Blood version of the app.
+
 new resource loader that saves a resource to disk (rulebook, large map image).
 new activity that supports displaying a large resource from above.
     Add rule books
@@ -33,7 +35,6 @@ shared element transitions
 
 CARD HOLO / 3D EFFECT
 
-Flesh and Blood version of the app.
 
 SETTINGS / localization?
     * MECCG
