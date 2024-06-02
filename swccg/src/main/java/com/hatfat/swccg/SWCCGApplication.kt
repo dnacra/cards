@@ -23,9 +23,6 @@ class SWCCGApplication : CardsApplication() {
     @Inject
     lateinit var metaDataRepository: SWCCGMetaDataRepository
 
-    @Inject
-    lateinit var searchResultsRepository: SearchResultsRepository
-
     override fun onCreate() {
         super.onCreate()
 
@@ -33,6 +30,5 @@ class SWCCGApplication : CardsApplication() {
         formatRepository.prepare()
         setRepository.prepare()
         metaDataRepository.prepare()
-        searchResultsRepository.prepare()
     }
 }
