@@ -2,6 +2,7 @@ package com.hatfat.fab
 
 import com.hatfat.cards.app.CardsApplication
 import com.hatfat.fab.repo.FabCardRepository
+import com.hatfat.fab.repo.FabSetRepository
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
 
@@ -13,9 +14,9 @@ class FabApplication : CardsApplication() {
     //    @Inject
 //    lateinit var formatRepository: SWCCGFormatRepository
 //
-//    @Inject
-//    lateinit var setRepository: SWCCGSetRepository
-//
+    @Inject
+    lateinit var setRepository: FabSetRepository
+
 //    @Inject
 //    lateinit var metaDataRepository: SWCCGMetaDataRepository
 //
@@ -27,7 +28,7 @@ class FabApplication : CardsApplication() {
 
         cardRepository.prepare()
 //        formatRepository.prepare()
-//        setRepository.prepare()
+        setRepository.prepare()
 //        metaDataRepository.prepare()
 //        searchResultsRepository.prepare()
     }

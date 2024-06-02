@@ -7,6 +7,7 @@ import com.hatfat.cards.results.general.SearchResultsCardData
 import com.hatfat.cards.results.general.SearchResultsDataProvider
 import com.hatfat.fab.R
 import com.hatfat.fab.repo.FabCardRepository
+import com.hatfat.fab.repo.FabSetRepository
 import com.hatfat.fab.search.FabSearchResults
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
@@ -15,7 +16,7 @@ import javax.inject.Singleton
 @Singleton
 class FabSearchResultsDataProvider @Inject constructor(
     private val cardRepository: FabCardRepository,
-//    private val setRepository: SWCCGSetRepository,
+    private val setRepository: FabSetRepository,
     @ApplicationContext private val context: Context,
 ) : SearchResultsDataProvider() {
 
@@ -31,21 +32,26 @@ class FabSearchResultsDataProvider @Inject constructor(
         searchResults: SearchResults, position: Int, cardData: SearchResultsCardData
     ) {
         (searchResults as FabSearchResults).also {
-            val cardId = it.getResult(position)
-            cardRepository.cardsMap.value?.get(cardId)?.let { card ->
+            val result = it.getResult(position)
+            cardRepository.cardsMap.value?.get(result.cardId)?.let { card ->
 //                val set = setRepository.setMap.value?.get(card.set)?.name
 //                    ?: context.getString(R.string.unknown)
 //                val rarity = card.rarity ?: context.getString(R.string.unknown)
 //                val side = card.side ?: context.getString(R.string.unknown)
 
+                val printing = card.getPrinting(result.printingIds[result.currentPrintingIndex])
+                val set = setRepository.setMap.value?.get(printing?.set_id)?.name
+                    ?: context.getString(R.string.unknown)
+                val edition = "asdf"
+
                 cardData.title = card.name
-                cardData.subtitle = "TODO"
+                cardData.subtitle = card.type_text
 //                cardData.listExtraText = setRepository.setMap.value?.get(card.set)?.abbr
-                cardData.listExtraText = "TODO2"
-                cardData.carouselInfoText1 = "TODO3"
-                cardData.carouselInfoText2 = "TODO4"
-                cardData.carouselInfoText3 = "TODO5"
-                cardData.frontImageUrl = card.printings[0].image_url
+                cardData.listExtraText = null
+                cardData.carouselInfoText1 = "TODO3: " + result.printingIds.size
+                cardData.carouselInfoText2 = set
+                cardData.carouselInfoText3 = edition
+                cardData.frontImageUrl = printing?.image_url
                 cardData.cardBackResourceId = R.drawable.fab_card_back
                 cardData.cardZoomTransformation = standardZoomTransformation
             }

@@ -22,6 +22,7 @@ data class FabCard(
     val interacts_with_keywords: List<String>,
     val functional_text: String,
     val functional_text_plain: String,
+    val type_text: String,
 //"type_text": "Wizard Defense Reaction",
 //"played_horizontally": false,
 //"blitz_legal": true,
@@ -41,6 +42,17 @@ data class FabCard(
 ) : Serializable, Comparable<FabCard> {
 
     override fun compareTo(other: FabCard): Int {
-        return name.compareTo(other.name)
+        name.compareTo(other.name).let {
+            if (it == 0) {
+                // Names are the same
+                return pitch.compareTo(other.pitch)
+            } else {
+                return it
+            }
+        }
+    }
+
+    fun getPrinting(printingId: String): FabPrinting? {
+        return printings.find { it.unique_id == printingId }
     }
 }

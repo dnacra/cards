@@ -9,7 +9,7 @@ import com.hatfat.cards.data.loader.DataDesc
 import com.hatfat.cards.data.loader.DataLoader
 import com.hatfat.fab.R
 import com.hatfat.fab.data.FabCard
-import com.hatfat.fab.data.FabCardIdList
+import com.hatfat.fab.search.FabSearchResult
 import com.hatfat.fab.service.GithubFabService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -24,17 +24,13 @@ class FabCardRepository @Inject constructor(
     private val dataLoader: DataLoader,
 ) : CardsRepository() {
     private val cardHashMapLiveData = MutableLiveData<Map<String, FabCard>>()
-    private val sortedCardArrayLiveData = MutableLiveData<Array<FabCard>>()
-    private val sortedCardIdsListLiveData = MutableLiveData<FabCardIdList>()
+    private val sortedSearchResultsLiveData = MutableLiveData<List<FabSearchResult>>()
 
     val cardsMap: LiveData<Map<String, FabCard>>
         get() = cardHashMapLiveData
 
-    val sortedCardsArray: LiveData<Array<FabCard>>
-        get() = sortedCardArrayLiveData
-
-    val sortedCardIds: LiveData<FabCardIdList>
-        get() = sortedCardIdsListLiveData
+    val sortedSearchResults: LiveData<List<FabSearchResult>>
+        get() = sortedSearchResultsLiveData
 
     init {
         cardHashMapLiveData.value = HashMap()
@@ -71,13 +67,16 @@ class FabCardRepository @Inject constructor(
 
         Log.i(TAG, "Loaded ${hashMap.values.size} cards total.")
 
-        val array = hashMap.values.toTypedArray()
-        array.sort()
+        // First sort by name, and then create the base FabSearchResult for each card.
+        val searchResults = hashMap.values.sortedBy { it.name }.map { card ->
+            FabSearchResult(card.unique_id, card.printings.map { printing ->
+                printing.unique_id
+            })
+        }
 
         withContext(Dispatchers.Main) {
             cardHashMapLiveData.value = hashMap
-            sortedCardArrayLiveData.value = array
-            sortedCardIdsListLiveData.value = FabCardIdList(array.map { it.unique_id })
+            sortedSearchResultsLiveData.value = searchResults
             loadedLiveData.value = true
         }
     }

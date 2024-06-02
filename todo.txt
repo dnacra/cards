@@ -2,6 +2,9 @@ APP-WORK
 ======================================
 Flesh and Blood version of the app.
     fab name / card to base on?
+        CODEX of RATHE
+            make own
+
     create fab entry in playstore
     real fab keystore
     real fab upload key
@@ -10,7 +13,19 @@ Flesh and Blood version of the app.
     about screen disclaimer from fab website
     play store triplet setup
     how much space do you save with json not having white space in the json?
+    adjust card zoom transformation
+    adjust card outline color based on?  pitch value?
 
+    printing missing image url?
+        wounding blow (3)
+
+    support flipping through different printings
+    displayed printing from search results should default to one that matches the serach criteria
+        search for SetA shows card printing from SetA
+
+remove swccg set repository from SWCCGFilter
+
+swccg too many colors on list view.... remove text coloring?
 
 
 

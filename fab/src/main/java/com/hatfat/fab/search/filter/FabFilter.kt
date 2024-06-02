@@ -1,7 +1,7 @@
 package com.hatfat.fab.search.filter
 
-import com.hatfat.fab.data.FabCard
+import com.hatfat.fab.search.FabSearchResult
 
 interface FabFilter {
-    fun filter(card: FabCard /* setRepository: SWCCGSetRepository */): Boolean
+    fun filter(searchResult: FabSearchResult): FabSearchResult?
 }

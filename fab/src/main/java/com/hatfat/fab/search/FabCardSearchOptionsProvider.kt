@@ -1,12 +1,20 @@
 package com.hatfat.fab.search
 
 import android.content.Context
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.SavedStateHandle
 import com.hatfat.cards.search.CardSearchOptionsProvider
 import com.hatfat.cards.search.filter.SpinnerFilter
 import com.hatfat.cards.search.filter.TextFilter
 import com.hatfat.cards.search.filter.advanced.AdvancedFilter
+import com.hatfat.fab.R
+import com.hatfat.fab.repo.FabCardRepository
+import com.hatfat.fab.repo.FabSetRepository
+import com.hatfat.fab.search.filter.set.FabSetFilter
+import com.hatfat.fab.search.filter.set.FabSetOption
+import com.hatfat.fab.search.filter.text.FabTextFilterMode
 import com.hatfat.swccg.search.filter.advanced.FabAdvancedFilter
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
@@ -14,29 +22,24 @@ import javax.inject.Inject
 class FabCardSearchOptionsProvider @Inject constructor(
     @ApplicationContext private val context: Context,
 //    private val metaDataRepository: SWCCGMetaDataRepository,
-//    private val setRepository: SWCCGSetRepository,
+    private val setRepository: FabSetRepository,
+    private val cardRepository: FabCardRepository,
 //    private val formatRepository: SWCCGFormatRepository
 ) : CardSearchOptionsProvider {
     override fun getTextSearchOptions(): List<TextFilter> {
         return listOf(
-//            TextFilter(
-//                SWCCGTextFilterMode.TITLE_ABBR.toString(),
-//                SWCCGTextFilterMode.TITLE_ABBR,
-//                context.getString(R.string.text_search_option_title_abbr),
-//                true
-//            ),
-//            TextFilter(
-//                SWCCGTextFilterMode.GAMETEXT.toString(),
-//                SWCCGTextFilterMode.GAMETEXT,
-//                context.getString(R.string.text_search_option_gametext),
-//                false
-//            ),
-//            TextFilter(
-//                SWCCGTextFilterMode.LORE.toString(),
-//                SWCCGTextFilterMode.LORE,
-//                context.getString(R.string.text_search_option_lore),
-//                false
-//            )
+            TextFilter(
+                FabTextFilterMode.NAME.toString(),
+                FabTextFilterMode.NAME,
+                context.getString(R.string.text_search_option_name),
+                true
+            ),
+            TextFilter(
+                FabTextFilterMode.GAMETEXT.toString(),
+                FabTextFilterMode.GAMETEXT,
+                context.getString(R.string.text_search_option_gametext),
+                false
+            ),
         )
     }
 
@@ -44,7 +47,7 @@ class FabCardSearchOptionsProvider @Inject constructor(
         return listOf(
 //            sideLiveData(savedStateHandle),
 //            typeLiveData(savedStateHandle),
-//            setLiveData(savedStateHandle),
+            setLiveData(savedStateHandle),
 //            formatLiveData(savedStateHandle)
         )
     }
@@ -144,59 +147,54 @@ class FabCardSearchOptionsProvider @Inject constructor(
 //
 //        return mediatorLiveData
 //    }
-//
-//    private fun setLiveData(savedStateHandle: SavedStateHandle): MutableLiveData<SpinnerFilter> {
-//        val initialList = listOf(SWCCGSetOption(context.getString(R.string.swccg_any_set), "0"))
-//        val defaultValue = SWCCGSetFilter(
-//            initialList,
-//            initialList[0]
-//        )
-//
-//        val persistedLiveData = savedStateHandle.getLiveData(
-//            "setKey",
-//            defaultValue
-//        )
-//
-//        val mediatorLiveData = MediatorLiveData<SpinnerFilter>()
-//        mediatorLiveData.value = persistedLiveData.value
-//
-//        val onChangedListener = Observer<Any> {
-//            setRepository.setList.value?.filter { !it.legacy }?.takeIf {
-//                it.isNotEmpty()
-//            }?.let { sets ->
-//                val persistedData = persistedLiveData.value ?: defaultValue
-//                val newOptions = initialList.toMutableList()
-//
-//                val options = sets.map {
-//                    var name = it.gempName ?: it.name
-//                    if (name.length > 20 && it.abbr != null) {
-//                        name = it.abbr
-//                    }
-//                    SWCCGSetOption(name, it.id)
-//                }
-//
-//                options.let {
-//                    newOptions.addAll((it))
-//                }
-//
-//                if (newOptions != persistedData.options) {
-//                    persistedData.options = newOptions
-//
-//                    if (!newOptions.contains(persistedData.selectedOption)) {
-//                        persistedData.selectedOption = newOptions[0]
-//                    }
-//
-//                    persistedLiveData.value = persistedData
-//                    mediatorLiveData.value = persistedData
-//                }
-//            }
-//        }
-//
-//        mediatorLiveData.addSource(persistedLiveData, onChangedListener)
-//        mediatorLiveData.addSource(setRepository.setList, onChangedListener)
-//
-//        return mediatorLiveData
-//    }
+
+    private fun setLiveData(savedStateHandle: SavedStateHandle): MutableLiveData<SpinnerFilter> {
+        val initialList = listOf(FabSetOption(context.getString(R.string.fab_any_set), "0"))
+        val defaultValue = FabSetFilter(
+            initialList,
+            initialList[0],
+            cardRepository
+        )
+
+        val persistedLiveData = savedStateHandle.getLiveData(
+            "setKey",
+            defaultValue
+        )
+
+        val mediatorLiveData = MediatorLiveData<SpinnerFilter>()
+        mediatorLiveData.value = persistedLiveData.value
+
+        val onChangedListener = Observer<Any> {
+            setRepository.setList.value?.let { sets ->
+                val persistedData = persistedLiveData.value ?: defaultValue
+                val newOptions = initialList.toMutableList()
+
+                val options = sets.map {
+                    FabSetOption(it.name, it.id)
+                }
+
+                options.let {
+                    newOptions.addAll((it))
+                }
+
+                if (newOptions != persistedData.options) {
+                    persistedData.options = newOptions
+
+                    if (!newOptions.contains(persistedData.selectedOption)) {
+                        persistedData.selectedOption = newOptions[0]
+                    }
+
+                    persistedLiveData.value = persistedData
+                    mediatorLiveData.value = persistedData
+                }
+            }
+        }
+
+        mediatorLiveData.addSource(persistedLiveData, onChangedListener)
+        mediatorLiveData.addSource(setRepository.setList, onChangedListener)
+
+        return mediatorLiveData
+    }
 //
 //    private fun formatLiveData(savedStateHandle: SavedStateHandle): MutableLiveData<SpinnerFilter> {
 //        val initialList = listOf(

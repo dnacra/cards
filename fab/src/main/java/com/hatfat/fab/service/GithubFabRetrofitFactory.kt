@@ -12,7 +12,7 @@ class GithubFabRetrofitFactory @Inject constructor(
 ) {
     val retrofit: Retrofit by lazy {
         Retrofit.Builder()
-            .baseUrl("https://raw.githubusercontent.com/the-fab-cube/flesh-and-blood-cards/develop/json/english/")
+            .baseUrl("https://raw.githubusercontent.com/the-fab-cube/flesh-and-blood-cards/main/json/english/")
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
