@@ -1,0 +1,4 @@
+-dontobfuscate
+-keep class com.hatfat.cards.** { *; }
+-keep class com.hatfat.cards.results.** { *; }
+-keep class com.hatfat.cards.inject.** { *; }

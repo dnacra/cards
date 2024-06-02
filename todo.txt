@@ -1,5 +1,10 @@
 APP-WORK
 ======================================
+Test for crash:
+    fresh launch, goto ABOUT screen before loading finishes.  Do we crash?
+
+
+
 Flesh and Blood version of the app.
     fab name / card to base on?
         CODEX of RATHE

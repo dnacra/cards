@@ -14,11 +14,11 @@ abstract class CardsRepository {
 
     @Inject
     @Named("RepositoryScope")
-    protected lateinit var coroutineScope: CoroutineScope
+    lateinit var coroutineScope: CoroutineScope
 
     @Inject
     @Named("RepositoryDispatcher")
-    protected lateinit var coroutineDispatcher: CoroutineDispatcher
+    lateinit var coroutineDispatcher: CoroutineDispatcher
 
     protected val loadedLiveData = MutableLiveData<Boolean>()
 
