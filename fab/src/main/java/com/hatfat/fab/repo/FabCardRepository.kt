@@ -24,10 +24,14 @@ class FabCardRepository @Inject constructor(
     private val dataLoader: DataLoader,
 ) : CardsRepository() {
     private val cardHashMapLiveData = MutableLiveData<Map<String, FabCard>>()
+    private val sortedCardArrayLiveData = MutableLiveData<Array<FabCard>>()
     private val sortedSearchResultsLiveData = MutableLiveData<List<FabSearchResult>>()
 
     val cardsMap: LiveData<Map<String, FabCard>>
         get() = cardHashMapLiveData
+
+    val sortedCardsArray: LiveData<Array<FabCard>>
+        get() = sortedCardArrayLiveData
 
     val sortedSearchResults: LiveData<List<FabSearchResult>>
         get() = sortedSearchResultsLiveData
@@ -67,8 +71,11 @@ class FabCardRepository @Inject constructor(
 
         Log.i(TAG, "Loaded ${hashMap.values.size} cards total.")
 
-        // First sort by name, and then create the base FabSearchResult for each card.
-        val searchResults = hashMap.values.sortedBy { it.name }.map { card ->
+        val array = hashMap.values.toTypedArray()
+        array.sort()
+
+        // Create the base FabSearchResult for each card.
+        val searchResults = array.map { card ->
             FabSearchResult(card.unique_id, card.printings.map { printing ->
                 printing.unique_id
             })
@@ -76,6 +83,7 @@ class FabCardRepository @Inject constructor(
 
         withContext(Dispatchers.Main) {
             cardHashMapLiveData.value = hashMap
+            sortedCardArrayLiveData.value = array
             sortedSearchResultsLiveData.value = searchResults
             loadedLiveData.value = true
         }

@@ -19,7 +19,7 @@ class FabSearchHandler @Inject constructor(
             val searchOptions =
                 searchParams.textFilters.map { it.extra as FabTextFilterMode }.toSet()
             val stringFilter =
-                FabTextFilter(searchParams.basicTextSearchString, searchOptions, cardRepo)
+                FabTextFilter(searchParams.basicTextSearchString, searchOptions)
             filters.add(stringFilter)
         }
 
@@ -37,7 +37,7 @@ class FabSearchHandler @Inject constructor(
 
         filters.forEach { filter ->
             results = results.mapNotNull { searchResult ->
-                filter.filter(searchResult)
+                filter.filter(searchResult, cardRepo)
             }
         }
 

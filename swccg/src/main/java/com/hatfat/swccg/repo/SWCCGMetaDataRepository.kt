@@ -17,7 +17,6 @@ class SWCCGMetaDataRepository @Inject constructor(
 ) : CardsRepository() {
     private val cardTypesLiveData = MutableLiveData<Set<String>>()
     private val cardSubTypesLiveData = MutableLiveData<Set<String>>()
-    private val setsLiveData = MutableLiveData<Set<String>>()
     private val sidesLiveData = MutableLiveData<Set<String>>()
 
     val cardTypes: LiveData<Set<String>>
@@ -26,14 +25,11 @@ class SWCCGMetaDataRepository @Inject constructor(
         get() = cardSubTypesLiveData
     val sides: LiveData<Set<String>>
         get() = sidesLiveData
-    val sets: LiveData<Set<String>>
-        get() = setsLiveData
 
     init {
         cardTypesLiveData.value = HashSet()
         cardSubTypesLiveData.value = HashSet()
         sidesLiveData.value = HashSet()
-        setsLiveData.value = HashSet()
     }
 
     override fun setup() {
@@ -50,22 +46,9 @@ class SWCCGMetaDataRepository @Inject constructor(
         val typesHashSet = HashSet<String>()
         val subtypesHashSet = HashSet<String>()
         val sidesHashSet = HashSet<String>()
-        val setsHashSet = HashSet<String>()
 
         /* populate the metadata sets based on the cards we loaded */
         for (card in cards) {
-            card.set?.let { set ->
-               if (set.isNotBlank())  {
-                   setsHashSet.add(set.trim())
-               }
-            }
-
-            card.printings?.forEach {
-                it.set?.let { set ->
-                    setsHashSet.add(set.trim())
-                }
-            }
-
             if (!card.front.type.isNullOrBlank()) {
                 if (card.front.type.contains("#")) {
                     /* trim # from jedi test card types */
@@ -90,7 +73,6 @@ class SWCCGMetaDataRepository @Inject constructor(
             cardSubTypesLiveData.value = subtypesHashSet
             sidesLiveData.value = sidesHashSet
             loadedLiveData.value = true
-            setsLiveData.value = setsHashSet
         }
     }
 }

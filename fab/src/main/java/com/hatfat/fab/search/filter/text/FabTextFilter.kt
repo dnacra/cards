@@ -7,9 +7,11 @@ import com.hatfat.fab.search.filter.FabFilter
 class FabTextFilter(
     private val filterText: String,
     private val textFilterModes: Set<FabTextFilterMode>,
-    private val cardRepository: FabCardRepository,
 ) : FabFilter {
-    override fun filter(searchResult: FabSearchResult): FabSearchResult? {
+    override fun filter(
+        searchResult: FabSearchResult,
+        cardRepository: FabCardRepository
+    ): FabSearchResult? {
         cardRepository.cardsMap.value?.get(searchResult.cardId)?.let { card ->
             if (textFilterModes.contains(FabTextFilterMode.NAME) && card.name.contains(
                     filterText,

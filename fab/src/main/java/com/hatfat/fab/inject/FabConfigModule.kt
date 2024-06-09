@@ -16,7 +16,8 @@ object FabConfigModule {
         return ArrayList<Int>().apply {
             this.add(R.string.cards_about_desc_line)
             this.add(R.string.cards_about_contact_line)
-            this.add(R.string.cards_about_swccg)
+            this.add(R.string.cards_about_fabtcg)
+            this.add(R.string.cards_about_json_data)
             this.add(R.string.cards_about_affiliation)
         }
     }

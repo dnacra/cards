@@ -1,9 +1,18 @@
 APP-WORK
 ======================================
-Test for crash:
-    fresh launch, goto ABOUT screen before loading finishes.  Do we crash?
+cleanup all catfat
 
+basic filters
+    Legality
+        All cards
+        blitz
+        classic constructed
+        Commoner
 
+advanced filters
+
+order we show the printing from
+    based on set release order, if possible?
 
 Flesh and Blood version of the app.
     fab name / card to base on?
@@ -13,22 +22,19 @@ Flesh and Blood version of the app.
     create fab entry in playstore
     real fab keystore
     real fab upload key
-    fab colors
     privacy policy
-    about screen disclaimer from fab website
     play store triplet setup
     how much space do you save with json not having white space in the json?
-    adjust card zoom transformation
     adjust card outline color based on?  pitch value?
-
-    printing missing image url?
-        wounding blow (3)
+        pitch value
+        gray for equipment
+        something else for tokens and heroes
 
     support flipping through different printings
-    displayed printing from search results should default to one that matches the serach criteria
+    displayed printing from search results should default to one that matches the search criteria
         search for SetA shows card printing from SetA
 
-remove swccg set repository from SWCCGFilter
+    check dark/light mode
 
 swccg too many colors on list view.... remove text coloring?
 

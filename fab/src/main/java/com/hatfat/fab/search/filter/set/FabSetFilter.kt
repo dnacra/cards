@@ -8,13 +8,15 @@ import java.io.Serializable
 
 class FabSetFilter(
     options: List<FabSetOption>,
-    notSelectedOption: FabSetOption?,
-    private val cardRepository: FabCardRepository,
+    notSelectedOption: FabSetOption,
 ) : SpinnerFilter(
     options,
     notSelectedOption
 ), FabFilter, Serializable {
-    override fun filter(searchResult: FabSearchResult): FabSearchResult? {
+    override fun filter(
+        searchResult: FabSearchResult,
+        cardRepository: FabCardRepository
+    ): FabSearchResult? {
         cardRepository.cardsMap.value?.get(searchResult.cardId)?.let { card ->
             val printingResults = searchResult.printingIds.filter { printingId ->
                 val printing = card.printings.find { printingId == it.unique_id }

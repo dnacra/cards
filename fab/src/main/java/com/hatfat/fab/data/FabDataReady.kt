@@ -5,10 +5,12 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.Observer
 import com.hatfat.cards.data.DataReady
 import com.hatfat.fab.repo.FabCardRepository
+import com.hatfat.fab.repo.FabMetaDataRepository
 import javax.inject.Inject
 
 class FabDataReady @Inject constructor(
     cardRepository: FabCardRepository,
+    metaDataRepository: FabMetaDataRepository
 ) : DataReady {
 
     private val mediatorLiveData: MediatorLiveData<Boolean> = MediatorLiveData()
@@ -19,13 +21,13 @@ class FabDataReady @Inject constructor(
                 (cardRepository.loaded.value == true)
 //                        && (formatRepository.loaded.value == true)
 //                        && (setRepository.loaded.value == true)
-//                        && (metaDataRepository.loaded.value == true)
+                        && (metaDataRepository.loaded.value == true)
         }
 
         mediatorLiveData.addSource(cardRepository.loaded, onChangedListener)
 //        mediatorLiveData.addSource(formatRepository.loaded, onChangedListener)
 //        mediatorLiveData.addSource(setRepository.loaded, onChangedListener)
-//        mediatorLiveData.addSource(metaDataRepository.loaded, onChangedListener)
+        mediatorLiveData.addSource(metaDataRepository.loaded, onChangedListener)
     }
 
     override val isDataReady: LiveData<Boolean>
