@@ -8,8 +8,8 @@ import java.io.Serializable
 
 class MECCGReleasedFilter(
     options: List<MECCGReleasedOption>,
-    notSelectedOption: MECCGReleasedOption?,
-    defaultOption: MECCGReleasedOption?
+    notSelectedOption: MECCGReleasedOption,
+    defaultOption: MECCGReleasedOption
 ) : SpinnerFilter(
     options,
     notSelectedOption,
