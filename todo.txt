@@ -164,3 +164,6 @@ RELEASING
 
 --> sync all publishing data with the current values
 ./gradlew bootstrap
+
+--> to build / publish a single app, use something similar to
+./gradlew :trek1:publishBundle
