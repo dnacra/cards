@@ -8,7 +8,7 @@ import java.io.Serializable
 
 class MECCGDreamcardFilter(
     options: List<MECCGDreamcardOption>,
-    notSelectedOption: MECCGDreamcardOption?
+    notSelectedOption: MECCGDreamcardOption
 ) : SpinnerFilter(
     options,
     notSelectedOption

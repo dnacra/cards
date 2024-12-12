@@ -8,7 +8,7 @@ import java.io.Serializable
 
 class SWCCGSideFilter(
     options: List<SWCCGSideOption>,
-    notSelectedOption: SWCCGSideOption?
+    notSelectedOption: SWCCGSideOption
 ) : SpinnerFilter(
     options,
     notSelectedOption

@@ -8,7 +8,7 @@ import java.io.Serializable
 
 class MECCGAlignmentFilter(
     options: List<MECCGAlignmentOption>,
-    notSelectedOption: MECCGAlignmentOption?
+    notSelectedOption: MECCGAlignmentOption
 ) : SpinnerFilter(
     options,
     notSelectedOption

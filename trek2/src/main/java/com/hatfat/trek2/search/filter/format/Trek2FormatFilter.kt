@@ -8,7 +8,7 @@ import java.io.Serializable
 
 class Trek2FormatFilter(
     options: List<Trek2FormatOption>,
-    notSelectedOption: Trek2FormatOption?
+    notSelectedOption: Trek2FormatOption
 ) : SpinnerFilter(
     options,
     notSelectedOption

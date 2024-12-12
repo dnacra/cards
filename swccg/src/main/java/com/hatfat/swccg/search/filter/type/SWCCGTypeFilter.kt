@@ -8,7 +8,7 @@ import java.io.Serializable
 
 class SWCCGTypeFilter(
     options: List<SWCCGTypeOption>,
-    notSelectedOption: SWCCGTypeOption?
+    notSelectedOption: SWCCGTypeOption
 ) : SpinnerFilter(
     options,
     notSelectedOption

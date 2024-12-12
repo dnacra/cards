@@ -9,8 +9,8 @@ import java.util.Locale
 
 class SWCCGFormatFilter(
     options: List<SWCCGFormatOption>,
-    notSelectedOption: SWCCGFormatOption?,
-    defaultOption: SWCCGFormatOption?
+    notSelectedOption: SWCCGFormatOption,
+    defaultOption: SWCCGFormatOption
 ) : SpinnerFilter(
     options,
     notSelectedOption,

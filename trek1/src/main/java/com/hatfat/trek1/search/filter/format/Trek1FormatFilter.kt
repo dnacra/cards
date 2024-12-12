@@ -9,13 +9,10 @@ import java.io.Serializable
 
 class Trek1FormatFilter(
     options: List<Trek1FormatOption>,
-    notSelectedOption: Trek1FormatOption?,
-    defaultOption: Trek1FormatOption?,
+    notSelectedOption: Trek1FormatOption,
 ) : SpinnerFilter(
     options,
     notSelectedOption,
-    defaultOption,
-    defaultOption
 ), Trek1Filter, Serializable {
     override fun filter(card: Trek1Card, setRepository: Trek1SetRepository, metaDataRepository: Trek1MetaDataRepository): Boolean {
         return when ((selectedOption as Trek1FormatOption).optionType) {

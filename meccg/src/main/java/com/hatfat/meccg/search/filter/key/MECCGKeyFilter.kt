@@ -8,7 +8,7 @@ import java.io.Serializable
 
 class MECCGKeyFilter(
     options: List<MECCGKeyOption>,
-    notSelectedOption: MECCGKeyOption?
+    notSelectedOption: MECCGKeyOption
 ) : SpinnerFilter(
     options,
     notSelectedOption

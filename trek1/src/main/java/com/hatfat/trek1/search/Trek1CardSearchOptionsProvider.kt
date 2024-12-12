@@ -241,7 +241,6 @@ class Trek1CardSearchOptionsProvider
 
         val defaultValue = Trek1FormatFilter(
             initialList,
-            null,
             initialList[0]
         )
 

@@ -8,7 +8,7 @@ import java.io.Serializable
 
 class Trek2AffiliationFilter(
     options: List<Trek2AffiliationOption>,
-    notSelectedOption: Trek2AffiliationOption?
+    notSelectedOption: Trek2AffiliationOption
 ) : SpinnerFilter(
     options,
     notSelectedOption
