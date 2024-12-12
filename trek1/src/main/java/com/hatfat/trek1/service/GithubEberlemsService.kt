@@ -11,6 +11,9 @@ interface GithubEberlemsService {
     @GET("playable/sets/Virtual.txt")
     suspend fun getVirtualCards(): ResponseBody
 
+    @GET("playable/sets/Rework.txt")
+    suspend fun getReworkCards(): ResponseBody
+
     @GET("playable/sets/sets.json")
     suspend fun getSets(): List<Trek1Set>
 }

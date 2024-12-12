@@ -67,6 +67,17 @@ class Trek1CardRepository @Inject constructor(
             "virtual",
         )
 
+        val reworkDataDesc = DataDesc(
+            typeToken,
+            {
+                val responseBody = eberlemsService.getReworkCards()
+                physicalCardListAdapter.convert(responseBody.byteStream())
+            },
+            R.raw.physical,
+            emptyList(),
+            "rework",
+        )
+
         val results = mutableListOf<List<Trek1Card>>()
         val cardLoadingTasks = listOf(
             coroutineScope.async(coroutineDispatcher) {
@@ -74,6 +85,9 @@ class Trek1CardRepository @Inject constructor(
             },
             coroutineScope.async(coroutineDispatcher) {
                 results.add(dataLoader.load(virtualDataDesc))
+            },
+            coroutineScope.async(coroutineDispatcher) {
+                results.add(dataLoader.load(reworkDataDesc))
             },
         )
 
